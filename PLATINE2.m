@@ -196,11 +196,6 @@ while continuer
             %
             Deformation_trajectoire;
             %
-        case 8 % Réinitialisation de la trajectoire
-            T(1).vitesse = 1;
-            T(1).nurbs.coefs = [ 1.1694    6.2644    9.4966    3.6446    4.2063    9.9435    9.5558    7.0481    8.4437    6.1963    5.8474    3.3604    4.6642    7.2380];
-            
-            save(NOMFIC,'im','nombre_objets','subd','T');
         otherwise
             disp ('CHOIX INCORRECT');
     end

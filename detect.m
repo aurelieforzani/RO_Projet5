@@ -1,3 +1,5 @@
+global position
+
 maxtempsparcours = 500;
 %
 simul;
@@ -24,24 +26,26 @@ while t <= maxtempsparcours % Boucle temporelle avec maxtempsparcours variable �
         % kobj est le numero de l'objet susceptible de rentrer en collision avec l'objet 1
         distance = norm(xy(1:2,ii(kobj),kobj)-xy(1:2,ii(1),1)); % distance du robot (objet 1) à l'objet kobj
         sumray = rrob(1)+rrob(kobj);
-         if distance < sumray && Vulnerable(1) && Vulnerable(kobj)
+        if distance < sumray && Vulnerable(1) && Vulnerable(kobj)
             objets_heurtes = [objets_heurtes kobj] % liste des objets heurtes par le robot 1 (MICKEY)
+            position = xy(1:2,ii(1),1);
+            
             kcol = kobj; % on sauvegarde le numero de l'objet kobj rentré en collision avec l'objet 1
             %
             %les objets 1 et kcol deviennent invulnerables
             Vulnerable(1) = false;
             Vulnerable(kcol) = false;
             %
-         else if distance >= sumray
-                 %pas de collision : distance >= sumray
-                 if ~Vulnerable(1) && ~Vulnerable(kobj)
-                     % Les 2 objets 1 et kobj sont invulnerables et ne sont plus
-                     % en collision : ils redeviennent vulnerables
-                     Vulnerable(1) = true;
-                     Vulnerable(kobj) = true;
-                 end
-             end
-         end
+        else if distance >= sumray
+                %pas de collision : distance >= sumray
+                if ~Vulnerable(1) && ~Vulnerable(kobj)
+                    % Les 2 objets 1 et kobj sont invulnerables et ne sont plus
+                    % en collision : ils redeviennent vulnerables
+                    Vulnerable(1) = true;
+                    Vulnerable(kobj) = true;
+                end
+            end
+        end
     end
     %
     t = t + 1;
